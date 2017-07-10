@@ -6,6 +6,7 @@
 import sys
 import random
 from Helpers import * # Source of clearConsole()
+import os # Used in testing 
 
 
 def menu():
@@ -35,8 +36,9 @@ def menu():
 
 def readFile(list) : 
 
+    print(os.getcwd())
+
     READ = 'r'
-    WRITE = 'w'
     fileName = list + '.txt'
 
     with open(fileName, READ) as f :
@@ -45,14 +47,12 @@ def readFile(list) :
 
     # Seperates each word to create a list of words
     Activitylist = [word.strip() for word in dictionary] 
-
-            
+        
     return(ActivityList) 
+
 
 def generateActivity() :
     
-    #TODO if files not found, use internal example lists as bellow
-
     chores = ['Washing Up', 'Laundry']
     fun = ['Watch TV', 'Play a game']
 
@@ -65,6 +65,12 @@ def generateActivity() :
            allList = readFile('all')
            displayOutput(random.choice(allList))
            # TODO enhancement = derive all list from combing chore.txt and fun.txt
+
+        except FileNotFoundError :
+            print('Sorry, all activities list, file not found')
+            print('Using default all activities list...\n')
+            displayOutput(random.choice(allActivities))
+
         except :
             print('Sorry there was an error with all.txt')
             print('Using default all activities list...\n')
@@ -75,6 +81,12 @@ def generateActivity() :
         try :
             choreList = readFile('chore')
             displayOutput(random.choice(choreList))
+
+        except FileNotFoundError :
+            print('Sorry, chore activities list, file not found ')
+            print('Using default all activities list...\n')
+            displayOutput(random.choice(allActivities))
+
         except :
             print('Sorry there was an error with chore.txt')
             print('Using default chore list...\n')
@@ -84,6 +96,12 @@ def generateActivity() :
         try :
             funList = readFile('fun')
             displayOutput(random.choice(funList))
+
+        except FileNotFound :
+            print('Sorry, fun activities, list, file not found')
+            print('Using default fun activities list...\n')
+            displayOutput(random.choice(fun))
+
         except :
             print('Sorry there was an error with fun.txt')
             print('Using default fun activities list...\n')
@@ -93,9 +111,7 @@ def generateActivity() :
         generateActivity()
 
 
-def readFiles() :
-    pass
-       
+      
 def displayOutput(activity) :
     print(activity)
      

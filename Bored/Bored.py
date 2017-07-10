@@ -78,6 +78,7 @@ def generateActivity() :
 
         try :
            allList = readFile('all')
+           print(allList) # Testing
            displayOutput(random.choice(allList))
 
            # TODO enhancement = derive all list from combing chore.txt and fun.txt
@@ -92,6 +93,8 @@ def generateActivity() :
             print('Using default all activities list...\n')
             displayOutput(random.choice(allActivities))
 
+            #print(allList) # Testing
+            print(type(allList)) # Testing
             var = traceback.format_exc() # Testing
             print(var) # Testing
 
@@ -100,6 +103,7 @@ def generateActivity() :
         try :
             choreList = readFile('chore')
             displayOutput(random.choice(choreList))
+            print(choreList) # Testing
 
         except FileNotFoundError :
             print('Sorry, chore activities list, file not found ')
@@ -115,6 +119,7 @@ def generateActivity() :
         try :
             funList = readFile('fun')
             displayOutput(random.choice(funList))
+            print(funList) # Testing
 
         except FileNotFound :
             print('Sorry, fun activities, list, file not found')

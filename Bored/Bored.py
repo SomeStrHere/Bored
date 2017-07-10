@@ -6,6 +6,7 @@
 import sys
 import random
 from Helpers import * # Source of clearConsole()
+from readFile import * # Source for the code to read the text files #TODO evaluate if putting back in this fle
 
 def menu():
 
@@ -35,6 +36,8 @@ def menu():
 
 def generateActivity() :
     
+    #TODO if files not found, use internal example lists as bellow
+
     chores = ['Washing Up', 'Laundry']
     fun = ['Watch TV', 'Play a game']
 
@@ -42,15 +45,41 @@ def generateActivity() :
     print(allActivities)
 
     if menu() == 'R' :
-        displayOutput(random.choice(allActivities))
+
+        try :
+           allList = readFile('all')
+           displayOutput(random.choice(allList))
+           # TODO enhancement = derive all list from combing chore.txt and fun.txt
+        except :
+            print('Sorry there was an error with all.txt')
+            print('Using default all activities list.../n')
+            displayOutput(random.choice(allActivities))
+
     elif menu() == 'C' :
-        displayOutput(random.choice(chores))
+
+        try :
+            choreList = readFile('chore')
+            displayOutput(random.choice(choreList))
+        except :
+            print('Sorry there was an error with chore.txt')
+            print('Using default chore list.../n')
+            displayOutput(random.choice(chores))
+
     elif menu() == 'F' :
-        displayOutput(random.choice(fun))
+        try :
+            funList = readFile('fun')
+            displayOutput(random.choice(funList))
+        except :
+            print('Sorry there was an error with fun.txt')
+            print('Using default fun activities list.../n')
+            displayOutput(random.choice(fun))
     else :
         print('Sorry, there was an error')
         generateActivity()
 
+
+def readFiles() :
+    pass
        
 def displayOutput(activity) :
     print(activity)
@@ -59,6 +88,7 @@ def displayOutput(activity) :
 def main() : 
     
     generateActivity()
+
 
 if __name__ == "__main__" :
     main()

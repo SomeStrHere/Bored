@@ -1,7 +1,7 @@
 # Console program that will return from a list; a random chore, a random fun thing to do, or a 
 # random selection from a list of both chores and fun things to do.
 #
-# V: 0.1.1
+# V: 0.2.0
 
 import sys
 import random

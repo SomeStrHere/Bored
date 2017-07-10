@@ -6,7 +6,7 @@
 import sys
 import random
 #import os # Used in testing 
-#import traceback # Used in testing 
+import traceback # Used in testing 
 
 def menu():
 
@@ -40,12 +40,29 @@ def readFile(list) :
     READ = 'r'
     fileName = list + '.txt'
 
-    with open(fileName, READ) as f :
-        # Reads the entire file
-        dictionary = f.readlines() 
+    if list == 'all' : 
 
-    # Seperates each word to create a list of words
-    ActivityList = [word.strip() for word in dictionary] 
+        with open('fun.txt', READ) as f :
+            # Reads the entire file
+            dictionary_fun = f.readlines() 
+
+            funList = [word.strip() for word in dictionary_fun]
+
+        with open('chore.txt', READ) as c :
+            # Reads the entire file
+            dictionary_chore = c.readlines() 
+
+            choreList = [word.strip() for word in dictionary_chore] 
+        ActivityList = funList.extend(choreList)
+
+    else :
+
+        with open(fileName, READ) as f :
+            # Reads the entire file
+            dictionary = f.readlines() 
+
+        # Seperates each word to create a list of words
+        ActivityList = [word.strip() for word in dictionary] 
      
     return(ActivityList) 
 
@@ -75,8 +92,8 @@ def generateActivity() :
             print('Using default all activities list...\n')
             displayOutput(random.choice(allActivities))
 
-            #var = traceback.format_exc() # Testing
-            #print(var) # Testing
+            var = traceback.format_exc() # Testing
+            print(var) # Testing
 
     elif menu() == 'C' :
 

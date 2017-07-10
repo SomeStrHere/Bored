@@ -5,9 +5,8 @@
 
 import sys
 import random
-from Helpers import * # Source of clearConsole()
-import os # Used in testing 
-
+#import os # Used in testing 
+#import traceback # Used in testing 
 
 def menu():
 
@@ -36,7 +35,7 @@ def menu():
 
 def readFile(list) : 
 
-    print(os.getcwd())
+    #print(os.getcwd()) # Testing 
 
     READ = 'r'
     fileName = list + '.txt'
@@ -46,8 +45,8 @@ def readFile(list) :
         dictionary = f.readlines() 
 
     # Seperates each word to create a list of words
-    Activitylist = [word.strip() for word in dictionary] 
-        
+    ActivityList = [word.strip() for word in dictionary] 
+     
     return(ActivityList) 
 
 
@@ -57,13 +56,13 @@ def generateActivity() :
     fun = ['Watch TV', 'Play a game']
 
     allActivities = chores + fun
-    print(allActivities)
 
     if menu() == 'R' :
 
         try :
            allList = readFile('all')
            displayOutput(random.choice(allList))
+
            # TODO enhancement = derive all list from combing chore.txt and fun.txt
 
         except FileNotFoundError :
@@ -75,6 +74,9 @@ def generateActivity() :
             print('Sorry there was an error with all.txt')
             print('Using default all activities list...\n')
             displayOutput(random.choice(allActivities))
+
+            #var = traceback.format_exc() # Testing
+            #print(var) # Testing
 
     elif menu() == 'C' :
 
@@ -110,6 +112,25 @@ def generateActivity() :
         print('Sorry, there was an error')
         generateActivity()
 
+
+def clearConsole(wait) : #function to clear console on Linux or Windows
+    """Clears console, with optional time delay.
+
+    Will attempt to clear the console for Windows, should that fail it will attempt to clear the
+    console for Linux.
+    """
+
+    import time
+    time.sleep(wait) 
+    # produces a delay based on the argument given to clearConsole()
+    
+    import os
+
+    try :
+       os.system('cls') #clears console on Windows
+
+    except :
+       os.system('clear') #clears console on Linux
 
       
 def displayOutput(activity) :

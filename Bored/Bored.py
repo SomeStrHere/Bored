@@ -6,7 +6,7 @@
 import sys
 import random
 #import os # Used in testing 
-import traceback # Used in testing 
+#import traceback # Used in testing 
 
 def menu():
 
@@ -53,7 +53,9 @@ def readFile(list) :
             dictionary_chore = c.readlines() 
 
             choreList = [word.strip() for word in dictionary_chore] 
-        ActivityList = funList.extend(choreList)
+
+        ActivityList = funList
+        ActivityList.extend(choreList)
 
     else :
 
@@ -64,6 +66,7 @@ def readFile(list) :
         # Seperates each word to create a list of words
         ActivityList = [word.strip() for word in dictionary] 
      
+    #print(ActivityList) # Testing
     return(ActivityList) 
 
 
@@ -78,10 +81,8 @@ def generateActivity() :
 
         try :
            allList = readFile('all')
-           print(allList) # Testing
+           #print(allList) # Testing
            displayOutput(random.choice(allList))
-
-           # TODO enhancement = derive all list from combing chore.txt and fun.txt
 
         except FileNotFoundError :
             print('Sorry, all activities list, file not found')
@@ -94,16 +95,16 @@ def generateActivity() :
             displayOutput(random.choice(allActivities))
 
             #print(allList) # Testing
-            print(type(allList)) # Testing
-            var = traceback.format_exc() # Testing
-            print(var) # Testing
+            #print(type(allList)) # Testing
+            #var = traceback.format_exc() # Testing
+            #print(var) # Testing
 
     elif menu() == 'C' :
 
         try :
             choreList = readFile('chore')
             displayOutput(random.choice(choreList))
-            print(choreList) # Testing
+            #print(choreList) # Testing
 
         except FileNotFoundError :
             print('Sorry, chore activities list, file not found ')
@@ -119,7 +120,7 @@ def generateActivity() :
         try :
             funList = readFile('fun')
             displayOutput(random.choice(funList))
-            print(funList) # Testing
+            #print(funList) # Testing
 
         except FileNotFound :
             print('Sorry, fun activities, list, file not found')

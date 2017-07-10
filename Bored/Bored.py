@@ -6,7 +6,7 @@
 import sys
 import random
 from Helpers import * # Source of clearConsole()
-from readFile import * # Source for the code to read the text files #TODO evaluate if putting back in this fle
+
 
 def menu():
 
@@ -33,6 +33,21 @@ def menu():
     else :
         return(userChoice)
 
+def readFile(list) : 
+
+    READ = 'r'
+    WRITE = 'w'
+    fileName = list + '.txt'
+
+    with open(fileName, READ) as f :
+        # Reads the entire file
+        dictionary = f.readlines() 
+
+    # Seperates each word to create a list of words
+    Activitylist = [word.strip() for word in dictionary] 
+
+            
+    return(ActivityList) 
 
 def generateActivity() :
     
@@ -52,7 +67,7 @@ def generateActivity() :
            # TODO enhancement = derive all list from combing chore.txt and fun.txt
         except :
             print('Sorry there was an error with all.txt')
-            print('Using default all activities list.../n')
+            print('Using default all activities list...\n')
             displayOutput(random.choice(allActivities))
 
     elif menu() == 'C' :
@@ -62,7 +77,7 @@ def generateActivity() :
             displayOutput(random.choice(choreList))
         except :
             print('Sorry there was an error with chore.txt')
-            print('Using default chore list.../n')
+            print('Using default chore list.../\')
             displayOutput(random.choice(chores))
 
     elif menu() == 'F' :
@@ -71,7 +86,7 @@ def generateActivity() :
             displayOutput(random.choice(funList))
         except :
             print('Sorry there was an error with fun.txt')
-            print('Using default fun activities list.../n')
+            print('Using default fun activities list...\n')
             displayOutput(random.choice(fun))
     else :
         print('Sorry, there was an error')

@@ -77,7 +77,7 @@ def generateActivity() :
             displayOutput(random.choice(choreList))
         except :
             print('Sorry there was an error with chore.txt')
-            print('Using default chore list.../\')
+            print('Using default chore list...\n')
             displayOutput(random.choice(chores))
 
     elif menu() == 'F' :

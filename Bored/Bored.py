@@ -1,7 +1,7 @@
 # Console program that will return from a list; a random chore, a random fun thing to do, or a 
 # random selection from a list of both chores and fun things to do.
 #
-# V: 0.1.1
+# V: 0.2.0
 
 import sys
 import random
@@ -40,13 +40,33 @@ def readFile(list) :
     READ = 'r'
     fileName = list + '.txt'
 
-    with open(fileName, READ) as f :
-        # Reads the entire file
-        dictionary = f.readlines() 
+    if list == 'all' : 
 
-    # Seperates each word to create a list of words
-    ActivityList = [word.strip() for word in dictionary] 
+        with open('fun.txt', READ) as f :
+            # Reads the entire file
+            dictionary_fun = f.readlines() 
+
+            funList = [word.strip() for word in dictionary_fun]
+
+        with open('chore.txt', READ) as c :
+            # Reads the entire file
+            dictionary_chore = c.readlines() 
+
+            choreList = [word.strip() for word in dictionary_chore] 
+
+        ActivityList = funList
+        ActivityList.extend(choreList)
+
+    else :
+
+        with open(fileName, READ) as f :
+            # Reads the entire file
+            dictionary = f.readlines() 
+
+        # Seperates each word to create a list of words
+        ActivityList = [word.strip() for word in dictionary] 
      
+    #print(ActivityList) # Testing
     return(ActivityList) 
 
 
@@ -61,9 +81,8 @@ def generateActivity() :
 
         try :
            allList = readFile('all')
+           #print(allList) # Testing
            displayOutput(random.choice(allList))
-
-           # TODO enhancement = derive all list from combing chore.txt and fun.txt
 
         except FileNotFoundError :
             print('Sorry, all activities list, file not found')
@@ -75,6 +94,8 @@ def generateActivity() :
             print('Using default all activities list...\n')
             displayOutput(random.choice(allActivities))
 
+            #print(allList) # Testing
+            #print(type(allList)) # Testing
             #var = traceback.format_exc() # Testing
             #print(var) # Testing
 
@@ -83,6 +104,7 @@ def generateActivity() :
         try :
             choreList = readFile('chore')
             displayOutput(random.choice(choreList))
+            #print(choreList) # Testing
 
         except FileNotFoundError :
             print('Sorry, chore activities list, file not found ')
@@ -98,6 +120,7 @@ def generateActivity() :
         try :
             funList = readFile('fun')
             displayOutput(random.choice(funList))
+            #print(funList) # Testing
 
         except FileNotFound :
             print('Sorry, fun activities, list, file not found')

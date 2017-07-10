@@ -72,7 +72,7 @@ def readFile(list) :
 
 def generateActivity() :
     
-    chores = ['Washing Dishes', 'Laundry', 'Clean Bathroom', 'Walk Dog', 'Hoover/Sweet Floors']
+    chores = ['Wash Dishes', 'Do Laundry', 'Clean Bathroom', 'Walk The Dog', 'Hoover/Sweet Floors']
     fun = ['Watch TV', 'Play a game', 'Have a run', 'Go Swimming', 'Draw/Paint']
 
     allActivities = chores + fun

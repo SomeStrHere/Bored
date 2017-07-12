@@ -102,7 +102,7 @@ def generateActivity() :
             displayOutput(random.choice(fun))
     else :
         print('Sorry, there was an error')
-        generateActivity()
+        menu()
 
 
 def readFile(list) : 

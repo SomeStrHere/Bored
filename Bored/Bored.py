@@ -121,6 +121,7 @@ def readFile(list) :
     Returns : ActivityList (list) a list of values in fun.txt, chore, txt or both files.
 
     """
+    READ = 'r'
     fileName = list + '.txt'
 
     if list == 'all' : 
@@ -128,9 +129,7 @@ def readFile(list) :
         with open('fun.txt', READ) as f :
             dictionary_fun = f.readlines() 
 
-            funList = [word.strip() for word in d
-
-    READ = 'r'ictionary_fun]
+            funList = [word.strip() for word in dictionary_fun]
 
         with open('chore.txt', READ) as c :
             # Reads the entire file

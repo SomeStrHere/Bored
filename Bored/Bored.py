@@ -6,8 +6,6 @@
 import sys
 import random
 from clearConsole import *
-#import os # Used in testing 
-#import traceback # Used in testing 
 
 def menu():
 
@@ -51,7 +49,6 @@ def generateActivity(userChoice) :
 
         try :
            allList = readFile('all')
-           #print(allList) # Testing
            displayOutput(random.choice(allList))
 
         except FileNotFoundError :
@@ -63,18 +60,13 @@ def generateActivity(userChoice) :
             print('Sorry there was an error with all.txt')
             print('Using default all activities list...\n')
             displayOutput(random.choice(allActivities))
-
-            #print(allList) # Testing
-            #print(type(allList)) # Testing
-            #var = traceback.format_exc() # Testing
-            #print(var) # Testing
+            
 
     elif userChoice == 'chore' :
 
         try :
             choreList = readFile('chore')
             displayOutput(random.choice(choreList))
-            #print(choreList) # Testing
 
         except FileNotFoundError :
             print('Sorry, chore activities list, file not found ')
@@ -90,7 +82,6 @@ def generateActivity(userChoice) :
         try :
             funList = readFile('fun')
             displayOutput(random.choice(funList))
-            #print(funList) # Testing
 
         except FileNotFound :
             print('Sorry, fun activities, list, file not found')
@@ -108,15 +99,12 @@ def generateActivity(userChoice) :
 
 def readFile(list) : 
 
-    #print(os.getcwd()) # Testing 
-
     READ = 'r'
     fileName = list + '.txt'
 
     if list == 'all' : 
 
         with open('fun.txt', READ) as f :
-            # Reads the entire file
             dictionary_fun = f.readlines() 
 
             funList = [word.strip() for word in dictionary_fun]
@@ -139,7 +127,6 @@ def readFile(list) :
         # Seperates each word to create a list of words
         ActivityList = [word.strip() for word in dictionary] 
      
-    #print(ActivityList) # Testing
     return(ActivityList)
 
      

@@ -131,6 +131,9 @@ def readFile(list) :
 
      
 def displayOutput(activity) :
+    
+    clearConsole(0)
+    print('\nYour randomly selected activity is:\n')
     print(activity)
      
 

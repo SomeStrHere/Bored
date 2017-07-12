@@ -13,7 +13,7 @@ def menu():
 
     print('Bored\n')
        
-    print('R - Displays a random fun or chore activity')
+    print('A - Displays a random fun or chore activity')
     print('C - Displays a random chore activity')
     print('F - Displays a random fun activity')
     print('X - Exits program')
@@ -21,56 +21,22 @@ def menu():
 
     userChoice = input('\n').upper()
 
-    validOptions = {'R', 'C', 'F', 'X'} 
-    valid = userChoice in (validOptions)
+    if userChoice == 'X' :
+        clearConsole(0)
+        sys.exit
 
-    if valid :
-        if userChoice == 'X' :
-            clearConsole(0)
-            sys.exit
+    elif userChoice == 'A' :
+        generateActivity('all')
 
-        else :
-            return(userChoice)
+    elif userChoice == 'C' :
+        generateActivity('chore')
+
+    elif userChoice == 'F' :
+        generateActivity('fun')
 
     else :
         print('Invalid option, please try again')
-        generateActivity()
-
-def readFile(list) : 
-
-    #print(os.getcwd()) # Testing 
-
-    READ = 'r'
-    fileName = list + '.txt'
-
-    if list == 'all' : 
-
-        with open('fun.txt', READ) as f :
-            # Reads the entire file
-            dictionary_fun = f.readlines() 
-
-            funList = [word.strip() for word in dictionary_fun]
-
-        with open('chore.txt', READ) as c :
-            # Reads the entire file
-            dictionary_chore = c.readlines() 
-
-            choreList = [word.strip() for word in dictionary_chore] 
-
-        ActivityList = funList
-        ActivityList.extend(choreList)
-
-    else :
-
-        with open(fileName, READ) as f :
-            # Reads the entire file
-            dictionary = f.readlines() 
-
-        # Seperates each word to create a list of words
-        ActivityList = [word.strip() for word in dictionary] 
-     
-    #print(ActivityList) # Testing
-    return(ActivityList) 
+        menu()
 
 
 def generateActivity() :
@@ -138,6 +104,43 @@ def generateActivity() :
         print('Sorry, there was an error')
         generateActivity()
 
+
+def readFile(list) : 
+
+    #print(os.getcwd()) # Testing 
+
+    READ = 'r'
+    fileName = list + '.txt'
+
+    if list == 'all' : 
+
+        with open('fun.txt', READ) as f :
+            # Reads the entire file
+            dictionary_fun = f.readlines() 
+
+            funList = [word.strip() for word in dictionary_fun]
+
+        with open('chore.txt', READ) as c :
+            # Reads the entire file
+            dictionary_chore = c.readlines() 
+
+            choreList = [word.strip() for word in dictionary_chore] 
+
+        ActivityList = funList
+        ActivityList.extend(choreList)
+
+    else :
+
+        with open(fileName, READ) as f :
+            # Reads the entire file
+            dictionary = f.readlines() 
+
+        # Seperates each word to create a list of words
+        ActivityList = [word.strip() for word in dictionary] 
+     
+    #print(ActivityList) # Testing
+    return(ActivityList)
+
      
 def displayOutput(activity) :
     print(activity)
@@ -145,7 +148,7 @@ def displayOutput(activity) :
 
 def main() : 
     
-    generateActivity()
+    menu()
 
 
 if __name__ == "__main__" :

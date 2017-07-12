@@ -39,14 +39,15 @@ def menu():
         menu()
 
 
-def generateActivity() :
+def generateActivity(userChoice) :
     
+    #Default lists
     chores = ['Wash Dishes', 'Do Laundry', 'Clean Bathroom', 'Walk The Dog', 'Hoover/Sweet Floors']
     fun = ['Watch TV', 'Play a game', 'Have a run', 'Go Swimming', 'Draw/Paint']
 
     allActivities = chores + fun
 
-    if menu() == 'R' :
+    if userChoice == 'all' :
 
         try :
            allList = readFile('all')
@@ -68,7 +69,7 @@ def generateActivity() :
             #var = traceback.format_exc() # Testing
             #print(var) # Testing
 
-    elif menu() == 'C' :
+    elif userChoice == 'chore' :
 
         try :
             choreList = readFile('chore')
@@ -85,7 +86,7 @@ def generateActivity() :
             print('Using default chore list...\n')
             displayOutput(random.choice(chores))
 
-    elif menu() == 'F' :
+    elif userChoice == 'fun' :
         try :
             funList = readFile('fun')
             displayOutput(random.choice(funList))

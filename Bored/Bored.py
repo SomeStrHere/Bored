@@ -1,18 +1,18 @@
 # Console program that will return from a list; a random chore, a random fun thing to do, or a 
 # random selection from a list of both chores and fun things to do.
 #
-# V: 0.2.0
+# V: 1.0.0
 
 import sys
 import random
-#import os # Used in testing 
-#import traceback # Used in testing 
+from clearConsole import *
 
 def menu():
+    """Generates program menu."""
 
     print('Bored\n')
        
-    print('R - Displays a random fun or chore activity')
+    print('A - Displays a random fun or chore activity')
     print('C - Displays a random chore activity')
     print('F - Displays a random fun activity')
     print('X - Exits program')
@@ -20,30 +20,113 @@ def menu():
 
     userChoice = input('\n').upper()
 
-    validOptions = {'R', 'C', 'F', 'X'} 
-    valid = userChoice in (validOptions)
-
-    if valid == False :
+    if userChoice == 'X' :
         clearConsole(0)
-        print('Not a valid option, please try again\n')
+        sys.exit
+
+    elif userChoice == 'A' :
+        generateActivity('all')
+
+    elif userChoice == 'C' :
+        generateActivity('chore')
+
+    elif userChoice == 'F' :
+        generateActivity('fun')
+
+    else :
+        print('Invalid option, please try again')
         menu()
 
-    elif userChoice == 'X' :
-            sys.exit()
+
+def generateActivity(userChoice) :
+    """Generates a random activity string.
+    
+    Generates a random string value from a user selected chore, fun or combined list.
+    The lists are generated from a fun.txt and chore.txt file unless there is an error, or
+    those files cannot be found. If fun.txt and chore.txt files cannot be found, values will
+    be derived from an internal default list.
+
+    Args :
+        userChoice (str) : The value entered by user, passed by menu() 
+
+    """
+    
+    #Default lists
+    chores = ['Wash Dishes', 'Do Laundry', 'Clean Bathroom', 'Walk The Dog', 'Hoover/Sweet Floors']
+    fun = ['Watch TV', 'Play a game', 'Have a run', 'Go Swimming', 'Draw/Paint']
+
+    allActivities = chores + fun
+
+    if userChoice == 'all' :
+
+        try :
+           allList = readFile('all')
+           displayOutput(random.choice(allList))
+
+        except FileNotFoundError :
+            print('Sorry, all activities list, file not found')
+            print('Using default all activities list...\n')
+            displayOutput(random.choice(allActivities))
+
+        except :
+            print('Sorry there was an error with all.txt')
+            print('Using default all activities list...\n')
+            displayOutput(random.choice(allActivities))
+            
+
+    elif userChoice == 'chore' :
+
+        try :
+            choreList = readFile('chore')
+            displayOutput(random.choice(choreList))
+
+        except FileNotFoundError :
+            print('Sorry, chore activities list, file not found ')
+            print('Using default all activities list...\n')
+            displayOutput(random.choice(allActivities))
+
+        except :
+            print('Sorry there was an error with chore.txt')
+            print('Using default chore list...\n')
+            displayOutput(random.choice(chores))
+
+    elif userChoice == 'fun' :
+        try :
+            funList = readFile('fun')
+            displayOutput(random.choice(funList))
+
+        except FileNotFound :
+            print('Sorry, fun activities, list, file not found')
+            print('Using default fun activities list...\n')
+            displayOutput(random.choice(fun))
+
+        except :
+            print('Sorry there was an error with fun.txt')
+            print('Using default fun activities list...\n')
+            displayOutput(random.choice(fun))
     else :
-        return(userChoice)
+        print('Sorry, there was an error')
+        menu()
+
 
 def readFile(list) : 
+    """Reads fun.txt, chore.txt or both.
+    
+    Opens and reads the entire contents of fun.txt, chore.txt or both files, depending
+    on the value of list passed by generateActivity.
 
-    #print(os.getcwd()) # Testing 
+    Args :
+        list (str) : A value representing which file(s) to read, passed by generateActivity() 
 
+    Returns : ActivityList (list) a list of values in fun.txt, chore, txt or both files.
+
+    """
     READ = 'r'
     fileName = list + '.txt'
 
     if list == 'all' : 
 
         with open('fun.txt', READ) as f :
-            # Reads the entire file
             dictionary_fun = f.readlines() 
 
             funList = [word.strip() for word in dictionary_fun]
@@ -66,103 +149,29 @@ def readFile(list) :
         # Seperates each word to create a list of words
         ActivityList = [word.strip() for word in dictionary] 
      
-    #print(ActivityList) # Testing
-    return(ActivityList) 
+    return(ActivityList)
 
-
-def generateActivity() :
-    
-    chores = ['Wash Dishes', 'Do Laundry', 'Clean Bathroom', 'Walk The Dog', 'Hoover/Sweet Floors']
-    fun = ['Watch TV', 'Play a game', 'Have a run', 'Go Swimming', 'Draw/Paint']
-
-    allActivities = chores + fun
-
-    if menu() == 'R' :
-
-        try :
-           allList = readFile('all')
-           #print(allList) # Testing
-           displayOutput(random.choice(allList))
-
-        except FileNotFoundError :
-            print('Sorry, all activities list, file not found')
-            print('Using default all activities list...\n')
-            displayOutput(random.choice(allActivities))
-
-        except :
-            print('Sorry there was an error with all.txt')
-            print('Using default all activities list...\n')
-            displayOutput(random.choice(allActivities))
-
-            #print(allList) # Testing
-            #print(type(allList)) # Testing
-            #var = traceback.format_exc() # Testing
-            #print(var) # Testing
-
-    elif menu() == 'C' :
-
-        try :
-            choreList = readFile('chore')
-            displayOutput(random.choice(choreList))
-            #print(choreList) # Testing
-
-        except FileNotFoundError :
-            print('Sorry, chore activities list, file not found ')
-            print('Using default all activities list...\n')
-            displayOutput(random.choice(allActivities))
-
-        except :
-            print('Sorry there was an error with chore.txt')
-            print('Using default chore list...\n')
-            displayOutput(random.choice(chores))
-
-    elif menu() == 'F' :
-        try :
-            funList = readFile('fun')
-            displayOutput(random.choice(funList))
-            #print(funList) # Testing
-
-        except FileNotFound :
-            print('Sorry, fun activities, list, file not found')
-            print('Using default fun activities list...\n')
-            displayOutput(random.choice(fun))
-
-        except :
-            print('Sorry there was an error with fun.txt')
-            print('Using default fun activities list...\n')
-            displayOutput(random.choice(fun))
-    else :
-        print('Sorry, there was an error')
-        generateActivity()
-
-
-def clearConsole(wait) : #function to clear console on Linux or Windows
-    """Clears console, with optional time delay.
-
-    Will attempt to clear the console for Windows, should that fail it will attempt to clear the
-    console for Linux.
-    """
-
-    import time
-    time.sleep(wait) 
-    # produces a delay based on the argument given to clearConsole()
-    
-    import os
-
-    try :
-       os.system('cls') #clears console on Windows
-
-    except :
-       os.system('clear') #clears console on Linux
-
-      
+     
 def displayOutput(activity) :
+    """Generates program output to the user.
+    
+    Takes in the activity (string) which is the randomly selected activity generated by
+    generateActivity() and prints it along with additional print statements and formatting
+    to the screen.
+
+    Args :
+        activity (str) : A randomly selected activity, generated by generateActivity() 
+
+    """ 
+    
+    clearConsole(0)
+    print('\nYour randomly selected activity is:\n')
     print(activity)
      
 
 def main() : 
     
-    generateActivity()
+    menu()
 
 
 if __name__ == "__main__" :
